@@ -14,7 +14,7 @@ ON `degrees`.`department_id` = `departments`.`id`
 WHERE `departments`.`name` = 'Dipartimento di Neuroscienze'
 AND `degrees`.`level` = 'magistrale';
 
-3. Selezionare tutti i corsi in cui insegna Fulvio Amato
+3. Selezionare tutti i corsi in cui insegna Fulvio Amato (id = 44)
 SELECT `teachers`.`name`AS `nome`, `teachers`.`surname` AS `cognome`, `courses`.*
 FROM `courses`
 JOIN `course_teacher`
@@ -46,3 +46,17 @@ ON `courses`.`id` = `course_teacher`.`course_id`
 JOIN `teachers`
 ON `course_teacher`.`teacher_id` = `teachers`.`id`
 ORDER BY `corso_laurea` ASC, `teachers`.`surname`,`teachers`.`name` ;
+
+6. Selezionare tutti i docenti che insegnano nel Dipartimento di
+Matematica (54)
+SELECT DISTINCT `departments`.`name` AS `dipartimento`,`teachers`.`name` AS `nome`, `teachers`.`surname` AS `cognome`  
+FROM `teachers`
+JOIN `course_teacher`
+ON `teachers`.`id` = `course_teacher`.`teacher_id`
+JOIN `courses`
+ON `course_teacher`.`course_id` = `courses`.`id`
+JOIN `degrees`
+ON `courses`.`degree_id` = `degrees`.`id`
+JOIN `departments`
+ON `degrees`.`department_id` = `departments`.`id`
+WHERE `departments`.`name` = 'Dipartimento di Matematica'; 
